@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\Strings.json" LogicalName="TouchpadControl.Localization.Strings.json" />
+    <Compile Include="..\ThreeFingerDragOnWindows\gestures\ContactFrameAssembler.cs" Link="gestures\ContactFrameAssembler.cs" />
+    <Compile Include="..\ThreeFingerDragOnWindows\gestures\GestureProcessor.cs" Link="gestures\GestureProcessor.cs" />
+    <Compile Include="..\ThreeFingerDragOnWindows\gestures\PointerAccelerationProfile.cs" Link="gestures\PointerAccelerationProfile.cs" />
+    <Compile Include="..\ThreeFingerDragOnWindows\gestures\PointerVelocityFilter.cs" Link="gestures\PointerVelocityFilter.cs" />
+    <Compile Include="..\ThreeFingerDragOnWindows\gestures\DragButtonLatch.cs" Link="gestures\DragButtonLatch.cs" />
+    <Compile Include="..\ThreeFingerDragOnWindows\gestures\DragPointerGain.cs" Link="gestures\DragPointerGain.cs" />
+  </ItemGroup>
+</Project>

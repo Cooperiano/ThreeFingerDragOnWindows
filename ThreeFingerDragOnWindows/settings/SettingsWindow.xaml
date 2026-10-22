@@ -3,9 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:ThreeFingerDragOnWindows.localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="ThreeFingerDragOnWindows"
+    Title="Touchpad Control"
     Closed="Window_Closed">
 
 
@@ -15,18 +16,18 @@
             RelativePanel.AlignLeftWithPanel="True"
             RelativePanel.AlignRightWithPanel="True"
             x:Name="TitleBar"
-            Height="44"
+            Height="48"
             Orientation="Horizontal"
             Background="{ThemeResource SolidBackgroundFillColorBaseBrush}">
 
-            <Border Height="44" Margin="9,0,0,0">
-                <Image Source="/Assets/icon-52.png" Height="26" />
+            <Border Height="48" Margin="12,0,0,0">
+                <Image Source="/Assets/icon-52.png" Height="28" />
             </Border>
 
 
-            <Border Height="44" Margin="12,0,0,0">
+            <Border Height="48" Margin="12,0,0,0">
                 <TextBlock
-                    Text="ThreeFingerDragOnWindows"
+                    Text="Touchpad Control"
                     FontSize="14"
                     FontWeight="Medium"
                     TextWrapping="NoWrap"
@@ -41,59 +42,71 @@
                         SelectionChanged="NavigationView_SelectionChanged"
                         Header="Header"
                         AlwaysShowHeader="True"
-                        PaneDisplayMode="Left"
-                        ExpandedModeThresholdWidth="400"
+                        PaneDisplayMode="Auto"
+                        CompactModeThresholdWidth="640"
+                        ExpandedModeThresholdWidth="900"
                         SelectionFollowsFocus="Disabled"
-                        IsTabStop="False"
-                        OpenPaneLength="250"
-                        IsPaneToggleButtonVisible="False"
+                        OpenPaneLength="256"
+                        IsPaneToggleButtonVisible="True"
+                        PaneTitle="{loc:Translate Key=S128}"
                         Background="{ThemeResource SolidBackgroundFillColorBaseBrush}"
                         RelativePanel.Below="TitleBar"
                         RelativePanel.AlignBottomWithPanel="True"
                         RelativePanel.AlignLeftWithPanel="True"
                         RelativePanel.AlignRightWithPanel="True">
 
-            <NavigationView.PaneCustomContent>
-                <StackPanel Height="22" />
-            </NavigationView.PaneCustomContent>
-
             <NavigationView.Resources>
-                <Thickness x:Key="NavigationViewHeaderMargin">20,20,0,20</Thickness>
+                <Thickness x:Key="NavigationViewHeaderMargin">32,28,0,20</Thickness>
             </NavigationView.Resources>
 
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Touchpad" Tag="Touchpad" x:Name="Touchpad">
+                <NavigationViewItem Content="{loc:Translate Key=S001}" Tag="Touchpad" x:Name="Touchpad"
+                                    MinHeight="44" Margin="0,2" ToolTipService.ToolTip="{loc:Translate Key=S001}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xEFA5;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Three Finger Drag" Tag="ThreeFingerDrag" x:Name="ThreeFingerDrag">
+                <NavigationViewItem Content="{loc:Translate Key=S002}" Tag="ThreeFingerDrag" x:Name="ThreeFingerDrag"
+                                    MinHeight="44" Margin="0,2" ToolTipService.ToolTip="{loc:Translate Key=S002}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE759;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Other Settings" Tag="Other Settings" x:Name="OtherSettings">
+            </NavigationView.MenuItems>
+
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="{loc:Translate Key=S003}" Tag="Other Settings" x:Name="OtherSettings"
+                                    MinHeight="44" ToolTipService.ToolTip="{loc:Translate Key=S074}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE713;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-            </NavigationView.MenuItems>
+            </NavigationView.FooterMenuItems>
 
             <NavigationView.PaneFooter>
-                <StackPanel x:Name="FooterStackPanel" Orientation="Vertical" Visibility="Visible">
-                    <NavigationViewItem Content="Close Settings" Tag="CloseSettings" x:Name="CloseApp"
-                                        Tapped="CloseButton_Click">
-                        <NavigationViewItem.Icon>
-                            <FontIcon Glyph="&#xE711;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem Content="Quit App" Tag="QuitApp" x:Name="QuitApp" Tapped="QuitButton_Click">
-                        <NavigationViewItem.Icon>
-                            <FontIcon Glyph="&#xE7E8;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                </StackPanel>
+                <Button x:Name="AppMenuButton" Margin="8,4,8,12" MinHeight="44"
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                        SizeChanged="AppMenuButton_SizeChanged"
+                        AutomationProperties.Name="{loc:Translate Key=S122}"
+                        ToolTipService.ToolTip="{loc:Translate Key=S122}">
+                    <Button.Flyout>
+                        <MenuFlyout Placement="Top">
+                            <MenuFlyoutItem x:Name="CloseApp" Text="{loc:Translate Key=S123}" Click="CloseButton_Click"
+                                            ToolTipService.ToolTip="{loc:Translate Key=S124}">
+                                <MenuFlyoutItem.Icon><FontIcon Glyph="&#xE711;" /></MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem x:Name="QuitApp" Text="{loc:Translate Key=S005}" Click="QuitButton_Click">
+                                <MenuFlyoutItem.Icon><FontIcon Glyph="&#xE7E8;" /></MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xE712;" FontSize="16" />
+                        <TextBlock x:Name="AppMenuLabel" Text="{loc:Translate Key=S122}" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                </Button>
             </NavigationView.PaneFooter>
 
 

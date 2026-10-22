@@ -7,20 +7,22 @@
         xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
 		xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
         xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-        IgnorableNamespaces="uap3 desktop uap rescap">
+        xmlns:desktop6="http://schemas.microsoft.com/appx/manifest/desktop/windows10/6"
+        IgnorableNamespaces="uap3 desktop desktop6 uap rescap">
 
     <Identity
             Name="50931ClmentGrennerat.ThreeFingersDragOnWindows"
             Publisher="CN=A5174EBF-789F-4CD5-BF8B-E0CB932DB9AD"
-            Version="2.0.7.0"/>
+            Version="2.2.0.48"/>
 
     <mp:PhoneIdentity PhoneProductId="c9b9ff1d-920c-45c7-99c8-3e98f838bef5"
                       PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
     <Properties>
-        <DisplayName>Three Finger Drag</DisplayName>
+        <DisplayName>Touchpad Control</DisplayName>
         <PublisherDisplayName>Clément Grennerat</PublisherDisplayName>
         <Logo>Assets\logo-512.png</Logo>
+        <desktop6:RegistryWriteVirtualization>disabled</desktop6:RegistryWriteVirtualization>
     </Properties>
 
     <Dependencies>
@@ -37,10 +39,10 @@
                      Executable="$targetnametoken$.exe"
                      EntryPoint="$targetentrypoint$">
             <uap:VisualElements
-                    DisplayName="ThreeFingerDragOnWindows"
-                    Description="Enables macOS-style three-finger dragging functionality on Windows Precision touchpads."
+                    DisplayName="Touchpad Control"
+                    Description="A unified control layer for pointer feel, multi-finger gestures, dragging, and window navigation on Windows Precision touchpads."
                     BackgroundColor="transparent" Square150x150Logo="Assets\logo-150.png"  Square44x44Logo="Assets\logo-44.png">
-                <uap:DefaultTile Square71x71Logo="Assets\SmallTile.png" Wide310x150Logo="Assets\WideTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="ThreeFingerDragOnWindows">
+                <uap:DefaultTile Square71x71Logo="Assets\SmallTile.png" Wide310x150Logo="Assets\WideTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="Touchpad Control">
                     <uap:ShowNameOnTiles>
                         <uap:ShowOn Tile="square150x150Logo"/>
                         <uap:ShowOn Tile="wide310x150Logo"/>
@@ -62,13 +64,20 @@
                 <uap:Extension Category="windows.protocol">
                     <uap:Protocol Name="threefingerdragonwindows">
                         <uap:Logo>Assets\icon-52.png</uap:Logo>
-                        <uap:DisplayName>ThreeFingerDragOnWindows</uap:DisplayName>
+                        <uap:DisplayName>Touchpad Control</uap:DisplayName>
                     </uap:Protocol >
                 </uap:Extension>
 
                 <desktop:Extension Category="windows.startupTask" Executable="ThreeFingerDragOnWindows.exe"
                                    EntryPoint="Windows.FullTrustApplication">
-                    <desktop:StartupTask TaskId="ThreeFingerDragOnWindows" Enabled="true" DisplayName="ThreeFingerDragOnWindows" />
+          <desktop:StartupTask TaskId="ThreeFingerDragOnWindows" Enabled="false" DisplayName="Touchpad Control" />
+                </desktop:Extension>
+
+                <desktop:Extension Category="windows.fullTrustProcess"
+                                   Executable="MissionControl\MissionControlPrototype.exe">
+                    <desktop:FullTrustProcess>
+                        <desktop:ParameterGroup GroupId="MissionControlCompanion" Parameters="--companion" />
+                    </desktop:FullTrustProcess>
                 </desktop:Extension>
 			</Extensions>
 
@@ -77,6 +86,7 @@
 
     <Capabilities>
         <rescap:Capability Name="runFullTrust"/>
+        <rescap:Capability Name="unvirtualizedResources"/>
 <!--        <rescap:Capability Name="allowElevation" />-->
     </Capabilities>
 </Package>

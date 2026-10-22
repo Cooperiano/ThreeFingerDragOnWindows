@@ -1,0 +1,25 @@
+name: Touchpad source verification
+on:
+  push:
+    branches: [touchpad-control, 'suite/**']
+  pull_request:
+    branches: [touchpad-control]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: touchpad-source-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  contracts-and-helper:
+    runs-on: windows-2025
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - run: dotnet test ThreeFingerDragEngine.Tests/ThreeFingerDragEngine.Tests.csproj -c Debug --nologo
+      - run: dotnet build WindowOverview/MissionControlPrototype.csproj -c Debug --nologo

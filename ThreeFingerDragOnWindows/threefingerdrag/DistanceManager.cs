@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using ThreeFingerDragEngine.utils;
+using ThreeFingerDragOnWindows.gestures;
 using ThreeFingerDragOnWindows.settings;
 using ThreeFingerDragOnWindows.utils;
 
@@ -82,28 +83,32 @@ public class DistanceManager {
     }
 
 
-    public static Point ApplySpeedAndAcc(IntPtr currentDevice, Point delta, int elapsed){
+    public static Point ApplySpeedAndAcc(
+        IntPtr currentDevice,
+        Point delta,
+        int elapsed,
+        double velocityDistance,
+        PointerVelocityFilter velocityFilter){
 
         // Apply Speed
         var deviceInfo = TouchpadHelper.GetDeivceInfo(currentDevice);
-        delta.Multiply(App.SettingsData.ThreeFingerDeviceDragCursorConfigs.GetValueOrDefault(deviceInfo.deviceId, new SettingsData.ThreeFingerDragConfig()).ThreeFingerDragCursorSpeed / 120);
+        var deviceId = deviceInfo?.deviceId ?? "default";
+        var config = App.SettingsData.ThreeFingerDeviceDragCursorConfigs.GetValueOrDefault(deviceId, new SettingsData.ThreeFingerDragConfig());
+        var speedScale = config.ThreeFingerDragCursorSpeed / 120;
+        delta.Multiply(speedScale);
 
-        // Calculate the mouse velocity : sort of a relative speed between 0 and 4, 1 being the average speed.
-        var mouseVelocity = Math.Min(delta.Length() / elapsed, 4);
-        if(float.IsNaN(mouseVelocity) || float.IsInfinity(mouseVelocity)) mouseVelocity = 1;
+        // Use a short time-based history rather than a single report. Very short
+        // scheduling bursts are normalized by the filter's report-period floor.
+        var sampledDistance = Math.Max(0, velocityDistance) * speedScale;
+        var mouseVelocity = Math.Min(velocityFilter.Update(sampledDistance, elapsed), 4);
+        if(double.IsNaN(mouseVelocity) || double.IsInfinity(mouseVelocity)) mouseVelocity = 1;
 
 
-        float pointerVelocity = 1;
-        if(App.SettingsData.ThreeFingerDeviceDragCursorConfigs.ContainsKey(deviceInfo.deviceId)){
-            // Apply acceleration : function that transform the mouseVelocity into a pointerVelocity : 0.7+zs\left(2.6a\left(x-1+\frac{3-\ln\left(\frac{z}{0.3}-1\right)}{2.6a}\right)-3\right)
-            // See https://www.desmos.com/calculator/khtj85jopn
-            float a = App.SettingsData.ThreeFingerDeviceDragCursorConfigs.GetValueOrDefault(deviceInfo.deviceId, new SettingsData.ThreeFingerDragConfig()).ThreeFingerDragCursorAcceleration / 10f; // Acceleration is multiplied by 10 in settings.
-            if (a != 0) {
-                pointerVelocity = (float)(0.7 + 0.8 * Sigmoid(2.6 * a * (mouseVelocity - 1 + (3 - Math.Log2(0.8 / 0.3 - 1)) / (2.6 * a)) - 3));
-                // No need to clamp, the function gives values between 0.7 and 1.5.
-                Logger.Log("    pointerVelocity: " + pointerVelocity + " (mouseVelocity: " + mouseVelocity + ")");
-            }
-        }
+        // Missing device preferences mean the same defaults used by the UI,
+        // not a separate unaccelerated mode that changes after opening settings.
+        var pointerVelocity = DragPointerGain.Calculate(mouseVelocity, config.ThreeFingerDragCursorAcceleration);
+        if(config.ThreeFingerDragCursorAcceleration != 0)
+            Logger.Log("    pointerVelocity: " + pointerVelocity + " (mouseVelocity: " + mouseVelocity + ")");
 
         // Apply acceleration
         delta.Multiply(pointerVelocity);
@@ -121,9 +126,4 @@ public class DistanceManager {
         return new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
     }
     
-    private static double Sigmoid(double value) {
-        double k = Math.Exp(value);
-        return k / (1.0d + k);
-    }
-
 }
