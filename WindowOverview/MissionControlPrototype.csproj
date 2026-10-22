@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>MissionControlPrototype</AssemblyName>
+    <RootNamespace>MissionControlPrototype</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\ThreeFingerDrag.Core\Localization\LanguageCatalog.cs" Link="Localization\LanguageCatalog.cs" />
+    <Compile Include="..\ThreeFingerDrag.Core\Localization\LanguagePreference.cs" Link="Localization\LanguagePreference.cs" />
+    <EmbeddedResource Include="..\ThreeFingerDrag.Core\Localization\Strings.json" LogicalName="TouchpadControl.Localization.Strings.json" />
+  </ItemGroup>
+</Project>

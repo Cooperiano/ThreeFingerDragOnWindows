@@ -1,142 +1,92 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System;
 using System.Linq;
 using ThreeFingerDragEngine.utils;
+using ThreeFingerDragOnWindows.gestures;
 using ThreeFingerDragOnWindows.utils;
 using WinRT.Interop;
-using WinUICommunity;
 
 namespace ThreeFingerDragOnWindows.touchpad;
 
-public class ContactsManager{
+public sealed class ContactsManager : IDisposable {
     private readonly HandlerWindow _source;
-
     private readonly IntPtr _hwnd;
-    private IntPtr _oldWndProc;
+    private readonly Interop.SubclassProcDelegate _callback;
+    private readonly ContactFrameAssembler<TouchpadContact> _assembler = new(contact => contact.ContactId);
+    private IntPtr _pendingDevice;
+    private bool _disposed;
+    private int _lastActiveCount = -1;
+    private const uint WM_NCDESTROY = 0x0082;
+    private static readonly UIntPtr SubclassId = new(0x544350);
 
-    public ContactsManager(HandlerWindow source){
+    public ContactsManager(HandlerWindow source) {
         _source = source;
-
-        _hwnd = WindowNative.GetWindowHandle(_source);
-        _oldWndProc = Interop.SetWndProc(_hwnd, WindowProcess);
+        _hwnd = WindowNative.GetWindowHandle(source);
+        _callback = WindowProcess;
+        if(!Interop.SetWindowSubclass(_hwnd, _callback, SubclassId, UIntPtr.Zero))
+            throw new InvalidOperationException("Could not register the touchpad input callback.");
     }
 
-    public void InitializeSource(){
-        var touchpadExists = TouchpadHelper.Exists();
-        var inputReceiverInstalled = TouchpadHelper.RegisterInput(_hwnd);
-
-        _source.OnTouchpadInitialized(touchpadExists, inputReceiverInstalled);
+    public void InitializeSource() {
+        if(_disposed) return;
+        _source.OnTouchpadInitialized(TouchpadHelper.Exists(), TouchpadHelper.RegisterInput(_hwnd));
     }
 
-    // WindowProc Listener
-    private IntPtr WindowProcess(IntPtr hwnd, uint message, IntPtr wParam, IntPtr lParam){
-        switch(message){
-            case TouchpadHelper.WM_INPUT:
-                var (currentDevice, contacts, count) = TouchpadHelper.ParseInput(lParam);
-                ReceiveTouchpadContacts(currentDevice, contacts, count);
-                break;
-            case TouchpadHelper.WM_INPUT_DEVICE_CHANGE:
-                _source.OnTouchpadInitialized(TouchpadHelper.Exists(lParam), true);
-                break;
-        }
-
-        return Interop.CallWindowProc(_oldWndProc, hwnd, message, wParam, lParam);
-    }
-
-
-    // Contacts managements
-    private List<TouchpadContact> _lastContacts = new();
-    private uint _targetContactCount;
-
-    private void ReceiveTouchpadContacts(IntPtr currentDevice, List<TouchpadContact> contacts, uint count){
-        if(contacts == null || contacts.Count == 0){
-            Logger.Log("Receiving empty contacts with cC=" + count);
-            return;
-        }
-
-        // Regular contact list
-        if(count == contacts.Count){
-            Logger.Log("+ Receiving regular contact list: " +  string.Join(", ", contacts.Select(c => c.ToString())));
-            _source.OnTouchpadContact(currentDevice, contacts);
-            _lastContacts.Clear();
-            return;
-        }
-
-        // Partial contact list (always sent after an incomplete contact list)
-        if(count == 0){
-            Logger.Log("Receiving partial contact list: " + string.Join(", ", contacts.Select(c => c.ToString())));
-            _lastContacts.AddRange(contacts);
-            _lastContacts = RemoveDuplicates(_lastContacts);
-
-            if(_targetContactCount == 0){
-                Logger.Log("[WARNING] Target contact count not received yet through an invalid contact list.");
-                return;
-            }
-
-            if(_lastContacts.Count > _targetContactCount){
-                Logger.Log("[WARNING] LastContact list has more contacts than expected: " + string.Join(", ", _lastContacts.Select(c => c.ToString())));
-                _lastContacts = _lastContacts.Take((int) _targetContactCount).ToList();
-                _source.OnTouchpadContact(currentDevice, _lastContacts);
-                _lastContacts.Clear();
-
-            }
-            if(_lastContacts.Count == _targetContactCount){
-                Logger.Log("+ LastContact list has correct length: " + string.Join(", ", _lastContacts.Select(c => c.ToString())));
-                _source.OnTouchpadContact(currentDevice, _lastContacts);
-                _lastContacts.Clear();
-            }
-            return;
-        }
-
-        // Old partial contact list has not been submitted yet : duplicating
-        if(_lastContacts.Count != 0){
-            Logger.Log("[WARNING] New incomplete contact list received while old lastContacts not empty: " + contacts.Count);
-
-            if(_lastContacts.Count < _targetContactCount){
-                var lastContact = _lastContacts.Last();
-                var maxId = _lastContacts.Max(c => c.ContactId);
-                for(int i = 1; i <= _targetContactCount - _lastContacts.Count; i++){
-                    _lastContacts.Add(new TouchpadContact(maxId + i, lastContact.X, lastContact.Y));
+    private IntPtr WindowProcess(IntPtr hwnd, uint message, IntPtr wParam, IntPtr lParam,
+        UIntPtr subclassId, UIntPtr referenceData) {
+        try {
+            if(!_disposed && message == TouchpadHelper.WM_INPUT) {
+                var (device, contacts, count, scanTime) = TouchpadHelper.ParseInput(lParam);
+                if(contacts is not null && !TouchpadHelper.IsSyntheticTouchpadDevice(device)) {
+                    if(_pendingDevice != device) {
+                        _assembler.Reset();
+                        _pendingDevice = device;
+                    }
+                    if(count == 0 && !_assembler.HasPendingFrame && contacts.All(contact => !contact.IsActive))
+                        DeliverFrame(device, Array.Empty<TouchpadContact>());
+                    else if(_assembler.TryAssemble(count, scanTime, contacts, out var frame))
+                        DeliverFrame(device, frame);
                 }
-                Logger.Log("+ Duplicated last contact to fulfil list: " + string.Join(", ", _lastContacts.Select(c => c.ToString())));
-            }else if(_lastContacts.Count > _targetContactCount){
-                Logger.Log("[WARNING] LastContact list has more contacts than expected: " + string.Join(", ", _lastContacts.Select(c => c.ToString())));
-                _lastContacts = _lastContacts.Take((int) _targetContactCount).ToList();
+            } else if(!_disposed && message == TouchpadHelper.WM_INPUT_DEVICE_CHANGE) {
+                // Creating our PT_TOUCHPAD output device also emits raw-input
+                // arrival/removal. Neither may reset the physical frame or
+                // cancel the drag that just created it.
+                if(wParam == new IntPtr(1)) TouchpadHelper.ForgetDevice(lParam);
+                if(TouchpadHelper.IsSyntheticTouchpadDevice(lParam)) {
+                    if(wParam == new IntPtr(2)) TouchpadHelper.ForgetDevice(lParam);
+                    return Interop.DefSubclassProc(hwnd, message, wParam, lParam);
+                }
+                _assembler.Reset();
+                _source.OnInputInterrupted();
+                // RegisterRawInputDevices itself emits arrival notifications for
+                // existing devices. Re-registering here creates an endless loop.
+                if(wParam == new IntPtr(1)) TouchpadHelper.Exists(lParam);
+                if(wParam == new IntPtr(2)) TouchpadHelper.ForgetDevice(lParam);
+                _source.OnTouchpadInitialized(TouchpadHelper.Exists(), _source.InputReceiverInstalled);
+            } else if(message == WM_NCDESTROY) {
+                Dispose();
             }
-
-            Logger.Log("+ LastContact list has correct length: " + string.Join(", ", _lastContacts.Select(c => c.ToString())));
-
-            _source.OnTouchpadContact(currentDevice, _lastContacts);
-            _lastContacts.Clear();
+        } catch(Exception exception) {
+            RuntimeDiagnostics.Write("input-callback", exception.ToString());
+            _assembler.Reset();
+            try { _source.OnInputInterrupted(); } catch { }
         }
-
-        // Regular contact list with more contacts than expected (unlikely to happen)
-        if(count <= contacts.Count){
-            Logger.Log("[WARNING] Received contact list with more contacts than expected: " + string.Join(", ", contacts.Select(c => c.ToString())));
-            contacts = contacts.Take((int) count).ToList();
-            Logger.Log("+ Contact list has been clamped: " + string.Join(", ", contacts.Select(c => c.ToString())));
-            _source.OnTouchpadContact(currentDevice, contacts);
-            _lastContacts.Clear();
-            return;
-        }
-
-        // Here, 0 < contacts.Length < count and lastContacts is empty: incomplete contact list
-        _targetContactCount = count;
-        _lastContacts = contacts;
-        Logger.Log("Receiving incomplete contact count, waiting for partial contacts: " + string.Join(", ", contacts.Select(c => c.ToString())));
+        return Interop.DefSubclassProc(hwnd, message, wParam, lParam);
     }
 
-    private List<TouchpadContact> RemoveDuplicates(List<TouchpadContact> contacts){
-        var uniqueContacts = new List<TouchpadContact>();
-        foreach(var contact in contacts){
-            if(!uniqueContacts.Any(c => c.ContactId == contact.ContactId)){
-                uniqueContacts.Add(contact);
-            }
+    public void Dispose() {
+        if(_disposed) return;
+        _disposed = true;
+        Interop.RemoveWindowSubclass(_hwnd, _callback, SubclassId);
+        _assembler.Reset();
+        GC.KeepAlive(_callback);
+    }
+
+    private void DeliverFrame(IntPtr device, TouchpadContact[] contacts) {
+        var active = contacts.Where(contact => contact.IsActive).ToList();
+        if(active.Count != _lastActiveCount) {
+            _lastActiveCount = active.Count;
+            RuntimeDiagnostics.Write("contacts", $"active={active.Count}; reported={contacts.Length}");
         }
-        if(uniqueContacts.Count != contacts.Count){
-            Logger.Log("[WARNING] Duplicate contacts ID in list. Removing duplicates: " + string.Join(", ", uniqueContacts.Select(c => c.ToString())));
-        }
-        return uniqueContacts;
+        _source.OnTouchpadContact(device, active);
     }
 }

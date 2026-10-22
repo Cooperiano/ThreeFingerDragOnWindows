@@ -1,0 +1,24 @@
+<UserControl
+    x:Class="ThreeFingerDragOnWindows.settings.UnifiedTrackingControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:loc="using:ThreeFingerDragOnWindows.localization">
+    <StackPanel Spacing="12">
+        <TextBlock Text="{loc:Translate Key=S174}" TextWrapping="Wrap" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        <Border Padding="20" CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+            <StackPanel Spacing="16">
+                <TextBlock Text="{loc:Translate Key=S175}" Style="{ThemeResource BodyStrongTextBlockStyle}" />
+                <Slider x:Name="Speed" Minimum="1" Maximum="20" StepFrequency="1" IsEnabled="False"
+                        AutomationProperties.Name="{loc:Translate Key=S175}" />
+                <Grid><TextBlock Text="{loc:Translate Key=S176}" /><TextBlock Text="{loc:Translate Key=S177}" HorizontalAlignment="Right" /></Grid>
+                <ToggleSwitch x:Name="Acceleration" Header="{loc:Translate Key=S178}" IsEnabled="False"
+                              OnContent="{loc:Translate Key=S076}" OffContent="{loc:Translate Key=S077}" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="Apply" Content="{loc:Translate Key=S179}" Click="Apply_Click" IsEnabled="False" MinHeight="44" />
+                    <Button x:Name="Refresh" Content="{loc:Translate Key=S180}" Click="Refresh_Click" MinHeight="44" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <InfoBar x:Name="Status" IsOpen="True" IsClosable="False" IsIconVisible="True" Message="{loc:Translate Key=S181}" />
+    </StackPanel>
+</UserControl>

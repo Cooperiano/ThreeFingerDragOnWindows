@@ -448,3 +448,17 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/rider
 /.idea/.idea.ThreeFingerDragOnWindows/.idea
+
+# Private runtime, signing and delivery material
+*.pfx
+*.p12
+*.key
+*.dmp
+*.log
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+/ThreeFingerDragOnWindows/MissionControl/
+/work/
+/local-artifacts/

@@ -5,4 +5,9 @@
         <win:RepositionThemeTransition IsStaggeringEnabled="False" />
         <!--  Smoothly animates individual cards upon whenever Expanders are expanded/collapsed  -->
     </win:TransitionCollection>
+
+    <!-- Product-level tokens used by the settings experience. -->
+    <win:SolidColorBrush x:Key="AccentTintBrush" Color="#140067C0" />
+    <win:SolidColorBrush x:Key="SuccessTintBrush" Color="#142E7D32" />
+    <win:SolidColorBrush x:Key="WarningTintBrush" Color="#14F9A825" />
 </win:ResourceDictionary>

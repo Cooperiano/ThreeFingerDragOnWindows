@@ -1,51 +1,61 @@
-[![Microsoft Store Badge](https://img.shields.io/badge/Microsoft%20Store-005FB8?logo=microsoftstore&logoColor=fff&style=flat)](https://apps.microsoft.com/detail/9MSX91WQCM2V?)
-[![Release](https://img.shields.io/github/v/release/clementgre/ThreeFingerDragOnWindows?label=Download%20version)](https://github.com/clementgre/ThreeFingerDragOnWindows/releases/latest)
-[![TotalDownloads](https://img.shields.io/github/downloads/clementgre/ThreeFingerDragOnWindows/total)](https://github.com/clementgre/ThreeFingerDragOnWindows/releases/latest)
-[![LatestDownloads](https://img.shields.io/github/downloads/clementgre/ThreeFingerDragOnWindows/latest/total)](https://github.com/clementgre/ThreeFingerDragOnWindows/releases/latest)
+# Touchpad Control — Julian's adaptation
 
-## Overview
+Windows Precision Touchpad 操控改造，基于 Clément Grennerat 的
+[ThreeFingerDragOnWindows 2.0.7](https://github.com/ClementGre/ThreeFingerDragOnWindows/tree/2.0.7)。
+保留 [MIT 许可](LICENSE)、版权和公开历史；[原版说明](README.upstream.md)以 UTF-8 保存。
 
-ThreeFingerDragOnWindows aims to bring the macOS-style three-finger dragging functionality to Windows Precision touchpads.
+由 [Julian Cooper / Cooperiano](https://github.com/Cooperiano) 主导需求、交互方向、套件整合与实机反馈，Codex 辅助实现。
+主桌面框架是 [Seelen Desktop Suite](https://github.com/Cooperiano/Seelen-UI)，本仓库是独立触控板组件，不是新内核驱动，也不包含 Apple 的私有算法。
 
-With a simple touchpad gesture, this app allows you to drag windows and select text (by emulating a cursor drag by holding down the left mouse button).
+## 来源与公开范围
 
-## Preview
-<p align="center">
-  <img src='https://raw.githubusercontent.com/ClementGre/ThreeFingerDragOnWindows/main/ThreeFingerDragOnWindows/Assets/Screenshot-1.png' alt="App screenshot: Touchpad tab" width='700'>
-  <img src='https://raw.githubusercontent.com/ClementGre/ThreeFingerDragOnWindows/main/ThreeFingerDragOnWindows/Assets/Screenshot-2.png' alt="App screenshot: Three Finger Drag tab" width='700'>
-  <img src='https://raw.githubusercontent.com/ClementGre/ThreeFingerDragOnWindows/main/ThreeFingerDragOnWindows/Assets/Screenshot-3.png' alt="App screenshot: Other Settings tab" width='700'>
-</p>
+- `ThreeFingerDragOnWindows/`：WinUI 主程序、输入接收、设置、原生跟踪适配与套件桥接。
+- `ThreeFingerDrag.Core/`：手势状态、接触帧、拖动按键生命周期、归一化与本地化。
+- `ThreeFingerDragEngine.Tests/`：纯回归测试，不运行实际接收器或注入指针。
+- `WindowOverview/`：本项目增加的总览辅助程序和几何测试源；跨私人工作区引用已改为仓库内路径。
+- `ThreeFingerDragElevator/`：原项目的辅助模块；构建源码不表示会提权或安装服务。
 
-## Installation
+Julian 的工作包括推动整体触控板操控方向、统一速度/加速入口、三指起步与拖动安全、窗口总览交互、双语设置、启动恢复及套件整合。上游与 Apple 的工作不算作我们的原创，见 [NOTICE](NOTICE.md)。
 
-If the installation fails, your computer might need to have the Windows App SDK redistributable installed. You can download it from this page: [https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads](https://learn.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads).
+这是本机 `2.2.0.48` 开发线的源码快照，基础为上游公开提交
+`658e18dfdbf71827865a1051d07cabaef59c7fcc`（2.0.7）。`touchpad-control` 是改造主线；上游 `main` 历史另行保留，未声称自动采用之后全部新功能。版本号不代表本次重新安装或字节一致重建已装包。
 
-## How to use
+## 构建与验证
 
-Make sure to disable the "Tap twice and drag to multi-select" behaviour and all of the default 3-finger swipe behaviour
-via ``Touchpad settings`` in Windows preferences for the drag to work without interferences.
+Windows、.NET 10 SDK；WinUI 构建还需兼容 Windows SDK/MSVC 和 NuGet 网络访问。
 
-To open the configuration pane, click the ThreeFingerDragOnWindows tray icon on the Windows taskbar.
+```powershell
+dotnet test ThreeFingerDragEngine.Tests/ThreeFingerDragEngine.Tests.csproj -c Debug
+dotnet build WindowOverview/MissionControlPrototype.csproj -c Debug
+dotnet msbuild ThreeFingerDragOnWindows/ThreeFingerDragOnWindows.csproj /restore /p:Configuration=Debug /p:Platform=x64 /p:RuntimeIdentifier=win-x64 /p:UnpackagedPreview=true /p:GenerateAppxPackageOnBuild=false /p:AppxPackageSigningEnabled=false /p:GenerateTemporaryStoreCertificate=false
+```
 
-## Project Status
+本次发布副本 301 项核心测试、总览辅助程序 Debug 构建及 WinUI x64 非打包构建通过。
+GitHub CI另行检查核心/辅助程序。编译和模拟验证不代表真实注入、手感、视觉或开机登录验收。
 
-The main goal of this project has been achieved, and the app is stable and usable. However, there are still a lot of potential improvements and features that could be added in the future, and a lot of platform-specific issues that could be investigated and fixed.
-I (Cl�ment Grennerat) am not anymore using Windows as my main OS, but I will continue to maintain the project and am open to contributions from the community!
+自建总览运行负载时先执行：
 
-## Build and Execute
+```powershell
+dotnet publish WindowOverview/MissionControlPrototype.csproj -c Debug -r win-x64 --self-contained true -o ThreeFingerDragOnWindows/MissionControl
+```
 
-The app can be built and run in Microsoft Visual Studio or Jetbrains Rider.
+生成目录忽略，不提交。打包身份沿用该开发线，不代表你拥有上游 Store 身份或本机签名证书。
+公开二进制分发前还需自己的身份、签名、安装和恢复流程；此处不提供安装器。
 
-## Libraries used
+## 边界
 
-The app is a WinUI 3 app, that uses the [Microsoft.UI.Xaml](https://docs.microsoft.com/en-us/windows/apps/winui/winui3/) library.
+- 一个共享 Windows 跟踪速度/加速入口，由内部适配手势，不给每种手指数独立倍率，也不承诺复刻 macOS 曲线。
+- 用户确认三指能拖动，但曲线手感仍需改进；实际定位、拖窗、选字和抬手测试不可由单测替代。
+- 四指总览可关闭保留 Windows 手势，不等于完整接管原生任务视图。
+- 不要与已装输入接收器并行运行，不自动安装证书/驱动、改登录任务或盲调 Windows 指针设置。
+- 偏好、原始 HID/输入日志、截图、转储、签名材料及安装包均不发布；NuGet 依赖保留原许可。
 
-Other libraries used:
-- [emoacht/RawInput.Touchpad](https://github.com/emoacht/RawInput.Touchpad) Allows to get the raw input of the touchpad (included in the source code as TouchpadHelper.cs).
-- [HavenDV/H.NotifyIcon](https://github.com/HavenDV/H.NotifyIcon) API for Windows taskbar tray icon in a WinUI app.
-- [dahall/TaskScheduler](https://github.com/dahall/TaskScheduler) API for Windows TaskScheduler (used for the skipUAC).
+## English
 
+An experimental adaptation led by Julian Cooper with Codex-assisted implementation, based on
+**Clément Grennerat's ThreeFingerDragOnWindows 2.0.7 (MIT)**. Public ancestry and copyright remain.
+Original additions and the window-overview helper are MIT; dependencies retain their own terms.
 
-<a href="https://apps.microsoft.com/detail/9msx91wqcm2v?mode=direct">
-	<img src="https://get.microsoft.com/images/fr%20dark.svg" width="200"/>
-</a>
+This publishes the WinUI component, gesture engine, helper source and tests for the Seelen-based
+desktop scheme. It is not a kernel driver, official Store release or port of Apple's private code.
+Passing 301 pure tests does not establish hardware feel or installed-package acceptance.

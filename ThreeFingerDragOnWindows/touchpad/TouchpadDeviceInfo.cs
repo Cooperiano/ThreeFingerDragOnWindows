@@ -11,6 +11,8 @@ public class TouchpadDeviceInfo
     public String productId { get; set; }
     
     public IntPtr hid { get; set; }
+    public string DevicePath { get; set; }
+    public TouchpadControl.Pointer.TouchpadGeometry Geometry { get; set; }
 
     public override string ToString()
     {

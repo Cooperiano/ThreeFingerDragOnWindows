@@ -5,6 +5,8 @@ using System.Linq;
 using System.Timers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Controls;
+using ThreeFingerDragOnWindows.localization;
 using ThreeFingerDragEngine.utils;
 using ThreeFingerDragOnWindows.threefingerdrag;
 using ThreeFingerDragOnWindows.utils;
@@ -36,6 +38,13 @@ public sealed partial class HandlerWindow : Window {
     }
 
     // TaskbarIcon Actions
+    public void ApplyLanguage(){
+        if(Content is FrameworkElement root){
+            ((XamlUICommand)root.Resources["QuitAppCommand"]).Label = UiStrings.Get("Quit App");
+            ((XamlUICommand)root.Resources["OpenSettingsWindowCommand"]).Label = UiStrings.Get("Open Settings Window");
+        }
+        TaskbarIcon.ToolTipText = UiStrings.Get("Open Touchpad Control.");
+    }
     private void OpenSettingsWindow(object sender, ExecuteRequestedEventArgs e){
         Logger.Log("Opening SettingsWindow from HandlerWindow TaskbarIcon");
         _app.OpenSettingsWindow();
@@ -50,8 +59,11 @@ public sealed partial class HandlerWindow : Window {
     // Touchpad
     // Called when the touchpad is detected and the events handlers are registered (or not)
     public void OnTouchpadInitialized(bool touchpadExists, bool inputReceiverInstalled){
+        var changed = !TouchpadInitialized || TouchpadExists != touchpadExists
+            || InputReceiverInstalled != inputReceiverInstalled;
         TouchpadExists = touchpadExists;
         InputReceiverInstalled = inputReceiverInstalled;
+        if(changed) RuntimeDiagnostics.Write("touchpad", $"detected={touchpadExists}; registered={inputReceiverInstalled}");
         if(!touchpadExists) Logger.Log("Touchpad is not detected.");
         else if(!inputReceiverInstalled) Logger.Log("Touchpad is detected but the input receiver couldn't be installed.");
         else Logger.Log("Touchpad is detected and registered.");
@@ -62,20 +74,26 @@ public sealed partial class HandlerWindow : Window {
 
     // Called when a new set of contacts has been registered
 
-    private TouchpadContact[] _oldContacts = Array.Empty<TouchpadContact>();
-    private long _lastContactCtms = Ctms();
-
     public void OnTouchpadContact(IntPtr currentDevice, List<TouchpadContact> contacts){
-        if(App.SettingsData.ThreeFingerDrag){
-            _threeFingersDrag.OnTouchpadContact(currentDevice, _oldContacts, contacts.ToArray(), Ctms() - _lastContactCtms);
+        if(App.SettingsData.ThreeFingerDrag || App.SettingsData.FourFingerGestures){
+            _threeFingersDrag.OnTouchpadContact(currentDevice, contacts.ToArray(), Ctms());
+        } else {
+            _threeFingersDrag.ForceRelease();
         }
 
         _app.OnTouchpadContact(currentDevice, contacts.ToArray()); // Transfer to App for displaying contacts in SettingsWindow
-        _lastContactCtms = Ctms();
-        _oldContacts = contacts.ToArray();
     }
 
     private static long Ctms(){
-        return new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds();
+        return Environment.TickCount64;
+    }
+
+    public void OnInputInterrupted() => _threeFingersDrag.ForceRelease();
+
+    public void OnEnabledSettingsChanged() => _threeFingersDrag.OnEnabledSettingsChanged();
+
+    private void HandlerWindow_Closed(object sender, WindowEventArgs e){
+        _contactsManager.Dispose();
+        _threeFingersDrag.Dispose();
     }
 }

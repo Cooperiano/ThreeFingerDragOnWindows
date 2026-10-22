@@ -10,16 +10,16 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
-    <Description>Enables macOS-style three-finger dragging functionality on Windows Precision touchpads.</Description>
+    <Description>A unified control layer for pointer feel, multi-finger gestures, dragging, and window navigation on Windows Precision touchpads.</Description>
     <PackageIcon>logo-44.targetsize-256.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/ClementGre/ThreeFingerDragOnWindows</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Cooperiano/ThreeFingerDragOnWindows</RepositoryUrl>
     <PackageTags>touchpad;tool;automation;finger</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyVersion>2.0.7.0</AssemblyVersion>
+    <AssemblyVersion>2.2.0.48</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Title>ThreeFingerDragOnWindows</Title>
-    <DisplayName>Three Finger Drag</DisplayName>
+    <Title>Touchpad Control</Title>
+    <DisplayName>Touchpad Control</DisplayName>
     <SignAssembly>False</SignAssembly>
     <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
@@ -35,6 +35,14 @@
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnpackagedPreview)' == 'true'">
+    <!-- Local side-by-side deployment for UI and hardware testing. This does not
+         alter or impersonate the Microsoft Store package identity. -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <EnableMsixTooling>false</EnableMsixTooling>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\logo-44.altform-lightunplated_targetsize-16.png" />
@@ -105,11 +113,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\icon.ico" />
+    <Content Include="MissionControl\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PackagePath>MissionControl\%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="H.NotifyIcon.WinUI" Version="2.3.2" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4654" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260921001" />
     <PackageReference Include="TaskScheduler" Version="2.11.0" />
     <PackageReference Include="WinUICommunity.Components" Version="6.9.0" />
     <PackageReference Include="WinUICommunity.Core" Version="6.9.0" />
@@ -127,6 +139,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ThreeFingerDragElevator\ThreeFingerDragElevator.csproj" />
+    <ProjectReference Include="..\ThreeFingerDrag.Core\ThreeFingerDrag.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="gestures\ContactFrameAssembler.cs" />
+    <Compile Remove="gestures\GestureProcessor.cs" />
+    <Compile Remove="gestures\PointerAccelerationProfile.cs" />
+    <Compile Remove="gestures\PointerVelocityFilter.cs" />
+    <Compile Remove="gestures\DragButtonLatch.cs" />
+    <Compile Remove="gestures\DragPointerGain.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Assets\logo-44.targetsize-256.png">

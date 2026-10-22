@@ -1,0 +1,700 @@
+{
+  "S001": {
+    "en": "Touchpad dashboard",
+    "zh-Hans": "触控板概览"
+  },
+  "S002": {
+    "en": "Pointer & gestures",
+    "zh-Hans": "指针与手势"
+  },
+  "S003": {
+    "en": "System & diagnostics",
+    "zh-Hans": "系统与诊断"
+  },
+  "S004": {
+    "en": "Close window",
+    "zh-Hans": "关闭窗口"
+  },
+  "S005": {
+    "en": "Quit Touchpad Control",
+    "zh-Hans": "退出 Touchpad Control"
+  },
+  "S006": {
+    "en": "Checking your touchpad",
+    "zh-Hans": "正在检查触控板"
+  },
+  "S007": {
+    "en": "This usually takes less than a second.",
+    "zh-Hans": "通常不到一秒即可完成。"
+  },
+  "S008": {
+    "en": "Touchpad ready",
+    "zh-Hans": "触控板已就绪"
+  },
+  "S009": {
+    "en": "Your precision touchpad is connected and sending input.",
+    "zh-Hans": "精密触控板已连接并正在发送输入。"
+  },
+  "S010": {
+    "en": "Configure gestures",
+    "zh-Hans": "配置手势"
+  },
+  "S011": {
+    "en": "Touchpad control center",
+    "zh-Hans": "触控板控制中心"
+  },
+  "S012": {
+    "en": "Connect a compatible touchpad",
+    "zh-Hans": "连接兼容的触控板"
+  },
+  "S013": {
+    "en": "Detected and ready",
+    "zh-Hans": "已检测到，准备就绪"
+  },
+  "S014": {
+    "en": "Avoid gesture conflicts",
+    "zh-Hans": "避免手势冲突"
+  },
+  "S015": {
+    "en": "Set Windows three- and four-finger swipes to Nothing.",
+    "zh-Hans": "请将 Windows 的三指和四指滑动均设为“无”。"
+  },
+  "S016": {
+    "en": "Open Windows settings",
+    "zh-Hans": "打开 Windows 设置"
+  },
+  "S017": {
+    "en": "Tune pointer and gestures",
+    "zh-Hans": "调整指针与手势"
+  },
+  "S018": {
+    "en": "Adjust pointer feel, three-finger drag, four-finger navigation, speed, and acceleration.",
+    "zh-Hans": "调整指针手感、三指拖动、四指导航、速度与加速度。"
+  },
+  "S019": {
+    "en": "Open controls",
+    "zh-Hans": "打开控制设置"
+  },
+  "S020": {
+    "en": "Input check",
+    "zh-Hans": "输入检查"
+  },
+  "S021": {
+    "en": "Waiting for touch",
+    "zh-Hans": "等待触摸"
+  },
+  "S022": {
+    "en": "Move a finger on the touchpad to verify live input.",
+    "zh-Hans": "在触控板上移动手指，检查实时输入。"
+  },
+  "S023": {
+    "en": "Technical details",
+    "zh-Hans": "技术详情"
+  },
+  "S024": {
+    "en": "No input received yet.",
+    "zh-Hans": "尚未收到输入。"
+  },
+  "S025": {
+    "en": "Unified touchpad controls",
+    "zh-Hans": "统一触控板控制"
+  },
+  "S026": {
+    "en": "Tune one-finger pointer feel, three-finger dragging, and four-finger window navigation from one place. Test dragging in another window because this settings surface captures some pointer input.",
+    "zh-Hans": "在此调整单指指针手感、三指拖动和四指窗口导航。请在其他窗口测试拖动，因为本设置窗口会捕获部分指针输入。"
+  },
+  "S027": {
+    "en": "Allows to select text, drag windows and other objects with three finger on the touchpad (left click simulation).",
+    "zh-Hans": "用三指在触控板上选择文字、拖动窗口和其他对象（模拟按住鼠标左键）。"
+  },
+  "S028": {
+    "en": "Three-finger drag",
+    "zh-Hans": "三指拖动"
+  },
+  "S029": {
+    "en": "One-finger pointer feel (native Windows tuning)",
+    "zh-Hans": "单指指针手感（Windows 原生调节）"
+  },
+  "S030": {
+    "en": "Changes need confirmation. Checking and reopening only read Windows settings. This is not a custom Mac curve and may affect a mouse. Turning it off restores saved settings.",
+    "zh-Hans": "修改前需要确认；检查和重开只读取 Windows 设置。并非独立 Mac 曲线，也可能影响鼠标。关闭后恢复已保存的设置。"
+  },
+  "S031": {
+    "en": "Enable four-finger gestures",
+    "zh-Hans": "启用四指手势"
+  },
+  "S032": {
+    "en": "Swipe up to open the window overview; it stays open when you lift. Move the pointer and click a window to open it. Swipe down again to leave the overview, or to show the desktop when it is closed. Outside the overview, swipe left or right to switch desktops.",
+    "zh-Hans": "上滑打开窗口总览，抬手后保持显示；移动指针并点击窗口打开。再次下滑退出总览，未打开总览时下滑显示桌面；总览外左右滑动切换桌面。"
+  },
+  "S033": {
+    "en": "Try window overview",
+    "zh-Hans": "测试窗口总览"
+  },
+  "S034": {
+    "en": "Open the overview to test window selection without changing your gesture settings.",
+    "zh-Hans": "打开总览，测试窗口选择，不改变手势设置。"
+  },
+  "S035": {
+    "en": "Open overview",
+    "zh-Hans": "打开总览"
+  },
+  "S036": {
+    "en": "Swipe distance",
+    "zh-Hans": "滑动距离"
+  },
+  "S037": {
+    "en": "Raise this value if four-finger actions trigger too easily. Recommended: 90.",
+    "zh-Hans": "如果四指动作太容易触发，请增大此值。建议：90。"
+  },
+  "S038": {
+    "en": "In Windows Settings > Bluetooth & devices > Touchpad, set both three-finger and four-finger swipes to Nothing while this app handles them.",
+    "zh-Hans": "在 Windows 设置 > 蓝牙和设备 > 触控板中，将三指和四指滑动均设为“无”，由本软件接管。"
+  },
+  "S039": {
+    "en": "Prevent duplicate Windows gestures",
+    "zh-Hans": "防止 Windows 手势重复触发"
+  },
+  "S040": {
+    "en": "Go to Settings",
+    "zh-Hans": "前往设置"
+  },
+  "S041": {
+    "en": "Keep the left button to be able to select text and drag objects.",
+    "zh-Hans": "保留鼠标左键，才能选择文字和拖动对象。"
+  },
+  "S042": {
+    "en": "Mouse button to be hold while dragging",
+    "zh-Hans": "拖动时按住的鼠标按键"
+  },
+  "S043": {
+    "en": "After releasing the three fingers, using only one or two fingers will instantly release the click. However, if you hang on, the click will be released only after a short delay. This feature allows you to reposition your fingers on the touchpad without releasing the click.",
+    "zh-Hans": "抬起三指后，若改用一指或两指，立即松开鼠标按键；若没有手指触摸，则等待短暂延迟后再松开。这样可以重新放置手指并继续拖动。"
+  },
+  "S044": {
+    "en": "Allow releasing fingers and restarting drag without releasing the click",
+    "zh-Hans": "允许抬指后继续拖动（暂不松开鼠标按键）"
+  },
+  "S045": {
+    "en": "Recommended: 500 ms.",
+    "zh-Hans": "建议：500 毫秒。"
+  },
+  "S046": {
+    "en": "Delay before click release (ms)",
+    "zh-Hans": "松开鼠标按键前的延迟（毫秒）"
+  },
+  "S047": {
+    "en": "Mouse Speed",
+    "zh-Hans": "指针速度"
+  },
+  "S048": {
+    "en": "Default to 30",
+    "zh-Hans": "默认：30"
+  },
+  "S049": {
+    "en": "Default to 10, 0 to disable.",
+    "zh-Hans": "默认：10；设为 0 可关闭。"
+  },
+  "S050": {
+    "en": "Mouse acceleration",
+    "zh-Hans": "指针加速度"
+  },
+  "S051": {
+    "en": "Start drag mouse move threshold",
+    "zh-Hans": "开始拖动的移动阈值"
+  },
+  "S052": {
+    "en": "Adaptive three-finger start distance. Fast, coherent motion can activate earlier while a short contact-stability window prevents accidental activation before the fourth finger lands. Recommended: 32.",
+    "zh-Hans": "三指拖动的自适应启动距离。快速且一致的移动可更早触发；短暂的触点稳定期可避免第四指落下前误触发。建议：32。"
+  },
+  "S053": {
+    "en": "End drag mouse move threshold",
+    "zh-Hans": "结束拖动的移动阈值"
+  },
+  "S054": {
+    "en": "The drag will end if the cursor have already moved at least this distance due to one finger movement. Recommended: 10px. This threshold can’t be higher than the start drag threshold.",
+    "zh-Hans": "单指使指针移动至少此距离后结束拖动。建议：10 像素。此值不能大于开始拖动的阈值。"
+  },
+  "S055": {
+    "en": "Troubleshooting",
+    "zh-Hans": "故障排查"
+  },
+  "S056": {
+    "en": "If the fingers move more than this distance at once, the record will be discarded. Can be used to prevent cursor jumps due to jumpy touchpad reports. Set to 0 to disable the limit. Default to 0.",
+    "zh-Hans": "手指单次移动超过此距离时丢弃该次输入，可减少触控板异常报告引起的指针跳跃。设为 0 关闭限制；默认：0。"
+  },
+  "S057": {
+    "en": "Limit the maximum allowed distance the finger can be moved at once",
+    "zh-Hans": "限制手指单次移动的最大距离"
+  },
+  "S058": {
+    "en": "Move the cursor based on an average of the last N inputs. Raise the value to smooth the cursor movement. Change this setting only if you are having issues as it will raise latency. Default to 1.",
+    "zh-Hans": "使用最近 N 次输入的平均值移动指针。增大可使移动更平滑，但也会增加延迟，仅在遇到问题时调整。默认：1。"
+  },
+  "S059": {
+    "en": "Average cursor movement",
+    "zh-Hans": "指针移动平均次数"
+  },
+  "S060": {
+    "en": "Run at startup",
+    "zh-Hans": "开机自启"
+  },
+  "S061": {
+    "en": "The app is set to run with administrator privileges. The start task of the task manager is then disabled. Another task is registered in the task scheduler to start the app without the UAC prompt.",
+    "zh-Hans": "已配置管理员权限运行，因此任务管理器中的普通启动任务会被禁用，改由任务计划程序启动以避免重复弹出 UAC 提示。"
+  },
+  "S062": {
+    "en": "Run as administrator",
+    "zh-Hans": "以管理员身份运行"
+  },
+  "S063": {
+    "en": "If the app is not running as an administrator, the dragging process will not function when a window with administrator privileges is in focus.",
+    "zh-Hans": "如果本软件未以管理员身份运行，前台窗口具有管理员权限时将无法进行拖动。"
+  },
+  "S064": {
+    "en": "Record logs",
+    "zh-Hans": "记录日志"
+  },
+  "S065": {
+    "en": "To record logs, enable logging, reproduce the issue you are having, disable logging, save the file and add it to a GitHub issue. The log file contains only the last 10000 lines of logs.",
+    "zh-Hans": "开启记录后复现问题，再关闭记录并保存日志。仅保留最近 10000 行；如需分享，请先检查并脱敏，日志不会自动上传。"
+  },
+  "S066": {
+    "en": "Save log file",
+    "zh-Hans": "保存日志文件"
+  },
+  "S067": {
+    "en": "About",
+    "zh-Hans": "关于"
+  },
+  "S068": {
+    "en": "GitHub repository",
+    "zh-Hans": "GitHub 源项目"
+  },
+  "S069": {
+    "en": "Donate with Paypal",
+    "zh-Hans": "通过 PayPal 捐赠"
+  },
+  "S070": {
+    "en": "Open GitHub issue",
+    "zh-Hans": "提交 GitHub 问题"
+  },
+  "S071": {
+    "en": "Quit App",
+    "zh-Hans": "退出软件"
+  },
+  "S072": {
+    "en": "Open Settings Window",
+    "zh-Hans": "打开设置"
+  },
+  "S073": {
+    "en": "Open Touchpad Control.",
+    "zh-Hans": "打开 Touchpad Control。"
+  },
+  "S074": {
+    "en": "Language",
+    "zh-Hans": "语言"
+  },
+  "S075": {
+    "en": "Follow system",
+    "zh-Hans": "跟随系统"
+  },
+  "S076": {
+    "en": "On",
+    "zh-Hans": "开"
+  },
+  "S077": {
+    "en": "Off",
+    "zh-Hans": "关"
+  },
+  "S078": {
+    "en": "None",
+    "zh-Hans": "无"
+  },
+  "S079": {
+    "en": "Left",
+    "zh-Hans": "左键"
+  },
+  "S080": {
+    "en": "Right",
+    "zh-Hans": "右键"
+  },
+  "S081": {
+    "en": "Middle",
+    "zh-Hans": "中键"
+  },
+  "S082": {
+    "en": "Touchpad Control will launch automatically.",
+    "zh-Hans": "Touchpad Control 将自动启动。"
+  },
+  "S083": {
+    "en": "© 2023-2025. All rights reserved.",
+    "zh-Hans": "© 2023–2025。保留所有权利。"
+  },
+  "S084": {
+    "en": "Input detected",
+    "zh-Hans": "已检测到输入"
+  },
+  "S085": {
+    "en": "Touchpad events are arriving normally.",
+    "zh-Hans": "正在接收触控板事件。"
+  },
+  "S086": {
+    "en": "A compatible precision touchpad is connected and sending input.",
+    "zh-Hans": "已连接兼容的精密触控板，输入接收已注册。"
+  },
+  "S087": {
+    "en": "Touchpad found, but input is unavailable",
+    "zh-Hans": "已找到触控板，但无法接收输入"
+  },
+  "S088": {
+    "en": "Restart the app and check that another gesture utility is not using the device.",
+    "zh-Hans": "请重启软件，并检查是否有其他手势工具占用此设备。"
+  },
+  "S089": {
+    "en": "Input receiver needs attention",
+    "zh-Hans": "输入接收需要检查"
+  },
+  "S090": {
+    "en": "No compatible touchpad detected",
+    "zh-Hans": "未检测到兼容的触控板"
+  },
+  "S091": {
+    "en": "Connect a Windows Precision Touchpad, then reopen this page.",
+    "zh-Hans": "请连接 Windows 精密触控板，然后重新打开此页面。"
+  },
+  "S092": {
+    "en": "Not detected",
+    "zh-Hans": "未检测到"
+  },
+  "S093": {
+    "en": "Device: {0}\nNo input received yet.",
+    "zh-Hans": "设备：{0}\n尚未收到输入。"
+  },
+  "S094": {
+    "en": "Enable three-finger pointer movement ({0})",
+    "zh-Hans": "启用三指指针移动（{0}）"
+  },
+  "S095": {
+    "en": "Touchpad device: {0}\n{1}\nEvent interval: {2} ms",
+    "zh-Hans": "触控板设备：{0}\n{1}\n事件间隔：{2} 毫秒"
+  },
+  "S096": {
+    "en": "unknown",
+    "zh-Hans": "未知"
+  },
+  "S097": {
+    "en": "The app is currently elevated (running with administrator privileges).",
+    "zh-Hans": "软件当前以管理员身份运行。"
+  },
+  "S098": {
+    "en": "The app is currently not elevated (not running with administrator privileges).",
+    "zh-Hans": "软件当前未以管理员身份运行。"
+  },
+  "S099": {
+    "en": "The app is currently set to run at startup with UAC skip configured.",
+    "zh-Hans": "已启用开机自启，并配置免重复 UAC 提示。"
+  },
+  "S100": {
+    "en": "The app is currently set set to run at startup with UAC skip configured. Disabling this requires the app to restart with administrator privileges.",
+    "zh-Hans": "已启用开机自启，并配置免重复 UAC 提示。关闭此功能需要以管理员身份重启软件。"
+  },
+  "S101": {
+    "en": "The app is currently not set to run at startup. You can enable it here with UAC skip configured.",
+    "zh-Hans": "尚未启用开机自启，可在此配置免重复 UAC 提示的启动方式。"
+  },
+  "S102": {
+    "en": "The app is currently not set to run at startup. You can enable it here with UAC skip configured, but this requires the app to restart with administrator privileges.",
+    "zh-Hans": "尚未启用开机自启。在此配置免重复 UAC 提示的启动方式，需要以管理员身份重启软件。"
+  },
+  "S103": {
+    "en": "The app is currently set to run at startup.",
+    "zh-Hans": "已启用开机自启。"
+  },
+  "S104": {
+    "en": "The app is currently not set to run at startup.",
+    "zh-Hans": "尚未启用开机自启。"
+  },
+  "S105": {
+    "en": "The app can't run at startup because the startup task was disabled in the tasks manager. You can re-enable it there and then reload this page.",
+    "zh-Hans": "启动任务已被用户禁用。请在任务管理器中重新启用，再重新打开此页面。"
+  },
+  "S106": {
+    "en": "The app startup task is enabled by a group policy. You can still setup an elevated startup task enabling the app to run as administrator.",
+    "zh-Hans": "组策略已启用启动任务。仍可配置管理员权限启动任务。"
+  },
+  "S107": {
+    "en": "The app startup task is disabled by a group policy. You can still setup an elevated startup task enabling the app to run as administrator.",
+    "zh-Hans": "组策略已禁用启动任务。仍可配置管理员权限启动任务。"
+  },
+  "S108": {
+    "en": "Logs saved",
+    "zh-Hans": "日志已保存"
+  },
+  "S109": {
+    "en": "The logs have been saved to the Downloads folder.",
+    "zh-Hans": "日志已保存到“下载”文件夹。"
+  },
+  "S110": {
+    "en": "Ok",
+    "zh-Hans": "确定"
+  },
+  "S111": {
+    "en": "Version {0}",
+    "zh-Hans": "版本 {0}"
+  },
+  "S112": {
+    "en": "Language changes take effect immediately and are saved for next launch.",
+    "zh-Hans": "语言立即生效，并在下次启动时保留。"
+  },
+  "S113": {
+    "en": "Could not save the language. Your previous choice is unchanged.",
+    "zh-Hans": "无法保存语言设置，已保留原来的选择。"
+  },
+  "S114": {
+    "en": "All windows",
+    "zh-Hans": "所有窗口"
+  },
+  "S115": {
+    "en": "Point to select · Click / Enter to open · Esc / four-finger swipe down to return",
+    "zh-Hans": "移动指针选择 · 点击 / Enter 打开 · Esc / 四指下滑返回"
+  },
+  "S116": {
+    "en": "No windows to display on this desktop",
+    "zh-Hans": "当前桌面没有可显示的窗口"
+  },
+  "S117": {
+    "en": "Touchpad Control — Window overview",
+    "zh-Hans": "Touchpad Control — 窗口总览"
+  },
+  "S118": {
+    "en": "Unable to register Ctrl+Alt+Space. Another app may be using it.",
+    "zh-Hans": "无法注册 Ctrl+Alt+Space，可能已被其他软件占用。"
+  },
+  "S119": {
+    "en": "Fixing startup task issue",
+    "zh-Hans": "修复启动任务问题"
+  },
+  "S121": {
+    "en": "Touchpad Control handles three-finger pointer movement separately from Windows one-finger movement. Tune this device's speed and acceleration here.",
+    "zh-Hans": "三指指针移动由 Touchpad Control 单独处理，与 Windows 单指移动分开。可在此调整该设备的速度与加速度。"
+  },
+  "S122": {
+    "en": "Application menu",
+    "zh-Hans": "应用菜单"
+  },
+  "S123": {
+    "en": "Hide window",
+    "zh-Hans": "隐藏窗口"
+  },
+  "S124": {
+    "en": "Touchpad Control keeps running in the background.",
+    "zh-Hans": "Touchpad Control 将继续在后台运行。"
+  },
+  "S125": {
+    "en": "Quit Touchpad Control?",
+    "zh-Hans": "退出 Touchpad Control？"
+  },
+  "S126": {
+    "en": "Gestures and window overview will stop until you reopen Touchpad Control.",
+    "zh-Hans": "退出后将停止手势和窗口总览，重新打开 Touchpad Control 后恢复。"
+  },
+  "S127": {
+    "en": "Cancel",
+    "zh-Hans": "取消"
+  },
+  "S128": {
+    "en": "Navigation",
+    "zh-Hans": "导航"
+  },
+  "S129": {
+    "en": "Checking and applying Windows pointer settings…",
+    "zh-Hans": "正在读取、应用并核对 Windows 指针设置…"
+  },
+  "S130": {
+    "en": "Applied and read back from Windows. This confirms the settings, not physical pointer accuracy.",
+    "zh-Hans": "已应用并从 Windows 读回确认。这表示设置已生效，不代表实际触控精度已验收。"
+  },
+  "S131": {
+    "en": "Your saved Windows settings have been restored and read back.",
+    "zh-Hans": "已恢复你保存的 Windows 设置，并读回确认。"
+  },
+  "S132": {
+    "en": "The current Windows values have not been verified. Check before judging the pointer feel.",
+    "zh-Hans": "尚未核对当前 Windows 设置，请先检查，再判断指针手感。"
+  },
+  "S133": {
+    "en": "The change failed. The values from before this request were restored and verified. Your switch choice was not changed.",
+    "zh-Hans": "本次修改失败，已恢复并核对修改前的数值。开关选择未改变。"
+  },
+  "S134": {
+    "en": "The settings could not be confirmed. Your switch choice was not changed. Retry or check Windows touchpad settings.",
+    "zh-Hans": "无法确认实际设置，开关选择未改变。请重试或检查 Windows 触控板设置。"
+  },
+  "S135": {
+    "en": "Check / retry",
+    "zh-Hans": "检查 / 重试"
+  },
+  "S136": {
+    "en": "Windows settings verification",
+    "zh-Hans": "Windows 设置核验"
+  },
+  "S120": {
+    "en": "The v2.0.3 fixed a bug in the app startup task with elevated privileges. Please disable and re-enable the \"Run at startup\" option in the Other Settings tab to fix this bug.",
+    "zh-Hans": "2.0.3 版本修复了管理员权限启动任务的问题。请在“系统与诊断”中关闭再重新开启“开机自启”，以修复旧任务。"
+  },
+  "S137": {
+    "en": "Reading and checking Windows pointer settings…",
+    "zh-Hans": "正在读取并核对 Windows 指针设置…"
+  },
+  "S138": {
+    "en": "Windows values differ from the saved choice. Your current settings were kept. Reapply only if you want to replace them.",
+    "zh-Hans": "Windows 当前数值与保存的选择不同，已保留当前设置。只有希望覆盖时，才重新应用保存的选择。"
+  },
+  "S139": {
+    "en": "One-finger pointer",
+    "zh-Hans": "单指指针"
+  },
+  "S140": {
+    "en": "Four-finger navigation",
+    "zh-Hans": "四指导航"
+  },
+  "S141": {
+    "en": "Three-finger controls",
+    "zh-Hans": "三指操控"
+  },
+  "S142": {
+    "en": "Check current settings",
+    "zh-Hans": "检查当前设置"
+  },
+  "S143": {
+    "en": "Reapply saved choice",
+    "zh-Hans": "重新应用保存的选择"
+  },
+  "S144": {
+    "en": "Change Windows pointer settings?",
+    "zh-Hans": "更改 Windows 指针设置？"
+  },
+  "S145": {
+    "en": "The touchpad speed will be set to {0}/20. This also changes Windows pointer settings and may affect a mouse. Cancel keeps your current settings.",
+    "zh-Hans": "触控板速度将设为 {0}/20，同时会更改 Windows 指针设置，也可能影响鼠标。取消会保留当前设置。"
+  },
+  "S146": {
+    "en": "Apply changes",
+    "zh-Hans": "应用更改"
+  },
+  "S147": {
+    "en": "Current touchpad speed: {0}/20 · Saved target: {1}/20",
+    "zh-Hans": "触控板当前速度：{0}/20 · 保存的目标：{1}/20"
+  },
+  "S148": {
+    "en": "Startup & background",
+    "zh-Hans": "启动与后台"
+  },
+  "S149": {
+    "en": "Diagnostics & support",
+    "zh-Hans": "诊断与支持"
+  },
+  "S150": {
+    "en": "Drag thresholds & stability",
+    "zh-Hans": "起步与稳定性"
+  },
+  "S151": {
+    "en": "Changes are saved as you edit. They apply without restarting.",
+    "zh-Hans": "修改会即时保存并生效，无需重启。"
+  },
+  "S152": {
+    "en": "The change could not be saved. Your previous settings were kept. Check the value or try again.",
+    "zh-Hans": "修改未能保存，已保留原设置。请检查输入值或重试。"
+  },
+  "S153": {
+    "en": "Enter a valid number in the allowed range.",
+    "zh-Hans": "请输入允许范围内的有效数字。"
+  },
+  "S154": {
+    "en": "Current touchpad speed: {0}/20 · No saved restore point",
+    "zh-Hans": "触控板当前速度：{0}/20 · 尚无保存的恢复点"
+  },
+  "S155": {
+    "en": "Current Windows values were read. This check did not change them.",
+    "zh-Hans": "已读取当前 Windows 参数；这次检查没有修改它们。"
+  },
+  "S156": {
+    "en": "Current Windows values could not be read. No Windows settings were changed.",
+    "zh-Hans": "未能读取当前 Windows 参数；没有修改 Windows 设置。"
+  },
+  "S157": {
+    "en": "Legacy settings preserved",
+    "zh-Hans": "旧设置已保留"
+  },
+  "S158": {
+    "en": "Drag continuation, end threshold and input averaging are not implemented by the current algorithm. Their old values are preserved; these controls are temporarily hidden.",
+    "zh-Hans": "当前算法尚未实现抬指后续拖、结束阈值和移动平均调节。旧值已保留，这些控件暂时隐藏。"
+  },
+  "S159": {
+    "en": "Checking and saving startup settings…",
+    "zh-Hans": "正在检查并保存启动设置…"
+  },
+  "S160": {
+    "en": "Startup entries do not agree. Turn startup off and on to use one verified Touchpad Control task.",
+    "zh-Hans": "启动入口不一致。请关闭再打开自启动，统一为一个经过核验的 Touchpad Control 任务。"
+  },
+  "S161": {
+    "en": "Touchpad Control will start quietly at sign-in. The registered task has been verified.",
+    "zh-Hans": "Touchpad Control 将在登录后静默启动；已核验注册的启动任务。"
+  },
+  "S162": {
+    "en": "Startup is off. Touchpad Control will not start automatically at sign-in.",
+    "zh-Hans": "自启动已关闭。Touchpad Control 不会在登录后自动启动。"
+  },
+  "S163": {
+    "en": "Could not read startup settings. No changes were made.",
+    "zh-Hans": "未能读取启动设置，没有进行修改。"
+  },
+  "S164": {
+    "en": "Administrator approval was canceled or failed. Your previous settings are unchanged.",
+    "zh-Hans": "管理员授权已取消或失败，原设置保持不变。"
+  },
+  "S165": {
+    "en": "Could not save startup settings. Check the current state before trying again.",
+    "zh-Hans": "未能保存启动设置。请先检查当前状态，再重试。"
+  },
+  "S166": {
+    "en": "Administrator preference saved. Restart Touchpad Control to run without administrator privileges.",
+    "zh-Hans": "管理员偏好已保存。重启 Touchpad Control 后将以普通权限运行。"
+  },
+  "S167": {
+    "en": "Could not save logging settings. Your previous choice is unchanged.",
+    "zh-Hans": "未能保存日志设置，原选择保持不变。"
+  },
+  "S169": {"en":"Point & click","zh-Hans":"指向与点按"},
+  "S170": {"en":"Scroll & zoom","zh-Hans":"滚动与缩放"},
+  "S171": {"en":"More gestures","zh-Hans":"更多手势"},
+  "S172": {"en":"Scrolling, pinching and rotation remain native Windows gestures. They do not use cursor tracking speed. Configure them in Windows touchpad settings.","zh-Hans":"滚动、缩放和旋转沿用 Windows 原生手势，不套用光标移动速度。请在 Windows 触控板设置中配置。"},
+  "S173": {"en":"Windows manages native multi-finger gestures. Keep the custom four-finger overview off if you prefer Windows Task View. Directional switching is a gesture, not pointer dragging.","zh-Hans":"原生多指手势由 Windows 管理。如果更喜欢系统任务视图，请关闭下方自定义四指总览。方向切换是手势，不是光标拖拽。"},
+  "S174": {"en":"One tracking speed for pointing and dragging. Three-finger window dragging and text selection use Windows touchpad motion processing, just like native pointer movement. No separate finger-speed multiplier.","zh-Hans":"指向与拖拽只用一个移动速度。三指拖窗和文字选取接入 Windows 触控板移动处理，与原生指针共用系统速度和加速，不再叠加独立手指倍率。"},
+  "S175": {"en":"Tracking speed","zh-Hans":"移动速度"},
+  "S176": {"en":"Slow","zh-Hans":"慢"},
+  "S177": {"en":"Fast","zh-Hans":"快"},
+  "S178": {"en":"Pointer acceleration","zh-Hans":"指针加速"},
+  "S179": {"en":"Apply","zh-Hans":"应用"},
+  "S180": {"en":"Read Windows settings","zh-Hans":"读取系统设置"},
+  "S181": {"en":"Reading tracking settings…","zh-Hans":"正在读取移动设置…"},
+  "S182": {"en":"Read from Windows. Move the slider, then Apply. Opening this page does not change your settings.","zh-Hans":"已读取 Windows 当前值。调整滑块后点击“应用”。打开此页不会更改设置。"},
+  "S183": {"en":"Could not read Windows touchpad settings. No values were changed.","zh-Hans":"未能读取 Windows 触控板设置，没有修改任何参数。"},
+  "S184": {"en":"Windows settings changed elsewhere. The controls were refreshed; review them before applying again.","zh-Hans":"Windows 设置已在别处改变，控件已刷新。请核对后再应用。"},
+  "S185": {"en":"This changes Windows pointer acceleration for native pointing and three-finger dragging. It also changes Enhance pointer precision and may affect an external mouse. Cancel keeps the current settings.","zh-Hans":"这会改变原生指向和三指拖拽共用的 Windows 指针加速，也会修改“提高指针精确度”，可能影响外接鼠标。取消将保留当前设置。"},
+  "S186": {"en":"Applied and verified by Windows readback. Test slow pointing and fast dragging to check the physical feel.","zh-Hans":"已应用并通过 Windows 读回验证。请试用慢速定位与快速拖拽，确认实际手感。"},
+  "S187": {"en":"The change failed. Previous settings were restored and verified.","zh-Hans":"修改失败，先前设置已恢复并验证。"},
+  "S188": {"en":"The change could not be verified. Read Windows settings before trying again.","zh-Hans":"无法确认修改结果。请先读取系统设置，再重试。"},
+  "S189": {"en":"Enable movement on this device. Speed and acceleration come from the single Windows tracking control above.","zh-Hans":"启用此设备的指针移动。速度与加速统一由上方系统移动设置决定。"},
+  "S190": {"en":"Legacy three-finger speed values are kept only for rollback, not used by this version. Set Windows three-finger swipes to Nothing to avoid gesture conflicts.","zh-Hans":"旧三指速度值仅为回退保留，本版不再使用。请将 Windows 三指滑动设为“无”，避免手势冲突。"},
+  "S191": {"en":"Native motion API and device geometry are available. Actual three-finger movement still needs physical testing.","zh-Hans":"原生移动接口与设备尺寸可用，三指的实际移动仍需触控板试用验证。"},
+  "S192": {"en":"This Windows version does not support the unified touchpad motion API. Three-finger pointer dragging is unavailable; native pointing is unchanged.","zh-Hans":"此 Windows 版本不支持统一触控板移动接口，三指指针拖拽不可用；原生指向不受影响。"},
+  "S193": {"en":"No usable touchpad geometry was detected. Three-finger pointer dragging is unavailable on the affected device; native pointing is unchanged.","zh-Hans":"未检测到可用的触控板尺寸，受影响设备的三指指针拖拽不可用；原生指向不受影响。"},
+  "S194": {"en":"Sign-in startup and component switches are managed in Seelen Desktop Suite settings.","zh-Hans":"登录自启与组件开关由 Seelen 桌面套件统一管理，请在套件设置中调整。"},
+  "S168": {
+    "en": "Could not save the log file. Check the Downloads folder and try again.",
+    "zh-Hans": "未能保存日志文件。请检查“下载”文件夹后重试。"
+  }
+}

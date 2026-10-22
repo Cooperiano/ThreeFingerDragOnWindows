@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:ThreeFingerDragOnWindows.localization"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wuc="using:WinUICommunity"
     mc:Ignorable="d">
@@ -11,16 +12,29 @@
     <ScrollView Margin="0"
                 HorizontalAlignment="Stretch"
                 VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20,0,20,20"
+        <StackPanel Margin="32,0,32,32" MaxWidth="920" HorizontalAlignment="Stretch"
                     ChildrenTransitions="{StaticResource SettingsCardsAnimations}"
-                    Spacing="5">
+                    Spacing="8">
+
+            <wuc:SettingsCard Header="{loc:Translate Key=S074}"
+                              Description="{loc:Translate Key=S112}"
+                              HeaderIcon="{wuc:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xE775;}">
+                <ComboBox x:Name="LanguagePicker" MinWidth="220" AutomationProperties.Name="语言 / Language"
+                          SelectionChanged="LanguagePicker_SelectionChanged">
+                    <ComboBoxItem Tag="system" Content="跟随系统 / Follow system" />
+                    <ComboBoxItem Tag="zh-Hans" Content="简体中文" />
+                    <ComboBoxItem Tag="en" Content="English" />
+                </ComboBox>
+            </wuc:SettingsCard>
+            <InfoBar x:Name="LanguageStatus" IsOpen="False" IsClosable="False" Severity="Error" />
 
 
-            <wuc:SettingsCard Header="Run at startup"
-                              Description="ThreeFingerDragOnWindows will launch automatically."
+            <TextBlock Text="{loc:Translate Key=S148}" Margin="0,20,0,4" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <wuc:SettingsCard Header="{loc:Translate Key=S060}"
+                              Description="{loc:Translate Key=S082}"
                               HeaderIcon="{wuc:FontIcon FontFamily={StaticResource SymbolThemeFontFamily},
                                                                     Glyph=&#xF83E;}">
-                <ToggleSwitch x:Name="RunAtStartup"
+                <ToggleSwitch OnContent="{loc:Translate Key=S076}" OffContent="{loc:Translate Key=S077}" x:Name="RunAtStartup"
                               Toggled="RunAtStartup_Toggled" />
             </wuc:SettingsCard>
 
@@ -31,19 +45,19 @@
                      Severity="Informational" />
 
             <InfoBar
-                Title="The app is set to run with administrator privileges. The start task of the task manager is then disabled. Another task is registered in the task scheduler to start the app without the UAC prompt."
+                Title="{loc:Translate Key=S061}"
                 x:Name="ElevatedStartupInformation"
                 IsClosable="False"
                 IsOpen="True"
                 Severity="Informational" />
 
 
-            <wuc:SettingsCard Header="Run as administrator"
-                              Description="If the app is not running as an administrator, the dragging process will not function when a window with administrator privileges is in focus."
+            <wuc:SettingsCard Header="{loc:Translate Key=S062}"
+                              Description="{loc:Translate Key=S063}"
                               HeaderIcon="{wuc:FontIcon FontFamily={StaticResource SymbolThemeFontFamily},
                                                                     Glyph=&#xE7EF;}">
-                <ToggleSwitch x:Name="RunElevated" Toggled="RunElevated_Toggled"
-                              IsOn="{x:Bind RunElevatedProperty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ToggleSwitch OnContent="{loc:Translate Key=S076}" OffContent="{loc:Translate Key=S077}" x:Name="RunElevated" Toggled="RunElevated_Toggled"
+                              />
             </wuc:SettingsCard>
             <InfoBar Title=""
                      x:Name="ElevatedStatus"
@@ -51,22 +65,22 @@
                      IsOpen="True"
                      Severity="Informational" />
 
-            <wuc:SettingsCard Header="Record logs"
-                              Description="To record logs, enable logging, reproduce the issue you are having, disable logging, save the file and add it to a GitHub issue. The log file contains only the last 10000 lines of logs."
+            <TextBlock Text="{loc:Translate Key=S149}" Margin="0,20,0,4" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <wuc:SettingsCard Header="{loc:Translate Key=S064}"
+                              Description="{loc:Translate Key=S065}"
                               HeaderIcon="{wuc:FontIcon FontFamily={StaticResource SymbolThemeFontFamily}, Glyph=&#xE8E5;}">
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="10">
-                    <ToggleSwitch x:Name="RecordLogs" IsOn="{x:Bind RecordLogsProperty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button x:Name="SaveLogsButton" Content="Save log file" Click="SaveLogsButton_Click" />
+                    <ToggleSwitch OnContent="{loc:Translate Key=S076}" OffContent="{loc:Translate Key=S077}" x:Name="RecordLogs" Toggled="RecordLogs_Toggled" />
+                    <Button x:Name="SaveLogsButton" Content="{loc:Translate Key=S066}" Click="SaveLogsButton_Click" />
                 </StackPanel>
 
             </wuc:SettingsCard>
-
-
-            <wuc:SettingsGroup Header="About">
+            <InfoBar x:Name="LogStatus" IsOpen="False" IsClosable="True" Severity="Error" />
+            <wuc:SettingsGroup Header="{loc:Translate Key=S067}">
                 <wuc:SettingsGroup.Items>
-                    <wuc:SettingsExpander Description="© 2023-2025. All rights reserved."
-                                          Header="ThreeFingerDragOnWindows">
+                    <wuc:SettingsExpander Description="{loc:Translate Key=S083}"
+                                          Header="Touchpad Control">
                         <wuc:SettingsExpander.HeaderIcon>
                             <BitmapIcon ShowAsMonochrome="False"
                                         UriSource="ms-appx:///Assets/icon-52.png" />
@@ -75,24 +89,24 @@
                         <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    IsTextSelectionEnabled="True"
                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                   Text="Version 2.0.7.0" />
+                                   x:Name="VersionText" />
 
                         <wuc:SettingsExpander.Items>
                             <wuc:SettingsCard HorizontalContentAlignment="Left"
                                               ContentAlignment="Left">
                                 <StackPanel Margin="-12,0,0,0"
                                             Orientation="Vertical">
-                                    <HyperlinkButton Content="GitHub repository"
+                                    <HyperlinkButton Content="{loc:Translate Key=S068}"
                                                      NavigateUri="https://github.com/ClementGre/ThreeFingerDragOnWindows"
                                                      Margin="0,0,0,5" />
-                                    <HyperlinkButton Content="Donate with Paypal"
+                                    <HyperlinkButton Content="{loc:Translate Key=S069}"
                                                      NavigateUri="https://www.paypal.com/paypalme/themsou" />
                                 </StackPanel>
                             </wuc:SettingsCard>
                         </wuc:SettingsExpander.Items>
                     </wuc:SettingsExpander>
                     <HyperlinkButton Margin="0,8,0,0"
-                                     Content="Open GitHub issue"
+                                     Content="{loc:Translate Key=S070}"
                                      NavigateUri="https://github.com/ClementGre/ThreeFingerDragOnWindows/issues/new" />
                 </wuc:SettingsGroup.Items>
             </wuc:SettingsGroup>
